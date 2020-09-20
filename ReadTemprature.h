@@ -1,0 +1,2 @@
+// 
+int readTemprature(float temps[]);

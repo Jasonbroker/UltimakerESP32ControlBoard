@@ -1,0 +1,7 @@
+{
+    "board": "esp32:esp32:esp32wrover",
+    "programmer": "AVRISP mkII",
+    "sketch": "temprature_fan.ino",
+    "configuration": "PartitionScheme=default,FlashMode=qio,FlashFreq=80,UploadSpeed=115200,DebugLevel=none",
+    "port": "/dev/cu.usbserial-0002"
+}

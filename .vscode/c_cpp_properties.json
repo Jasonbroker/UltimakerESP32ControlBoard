@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "Mac",
+            "includePath": [
+                "/Applications/Arduino.app/Contents/Java/tools/**",
+                "/Applications/Arduino.app/Contents/Java/hardware/arduino/avr/**",
+                "/Users/zzcc/Library/Arduino15/packages/esp32/tools/**",
+                "/Users/zzcc/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/**",
+                "${workspaceFolder}/**",
+                "/Users/zzcc/Documents/Arduino/libraries/**",
+                "/Users/zzcc/Documents/Arduino/libraries/DHT_sensor_library"
+            ],
+            "defines": [],
+            "macFrameworkPath": [
+                "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            ],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64",
+            "forcedInclude": []
+        }
+    ],
+    "version": 4
+}
