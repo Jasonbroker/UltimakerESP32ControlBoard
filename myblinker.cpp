@@ -46,7 +46,7 @@ void dataRead(const String & data)
     Number1.print(counter);
 }
 
-#define ENABLE_BLINK
+// #define ENABLE_BLINK
 
 void blinkerSetup() {
     // 初始化串口

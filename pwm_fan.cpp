@@ -29,23 +29,6 @@ void fanSetup(){
 
 }
 
-
-void simpleOpen(float temps[], int count) {
-    if (count < 4)
-    {
-        digitalWrite(relayPin1, HIGH);
-        digitalWrite(relayPin2, HIGH);
-        return;
-    }    
-    if (count == 4)
-    {
-        digitalWrite(relayPin1, temps[2] > 33 ? HIGH : LOW);
-        digitalWrite(relayPin2, temps[3] > 33 ? HIGH : LOW);        
-    }
-    
-
-}
-
 void control(float temps[], int count)
 {
     // if (threhold > 40) {
@@ -57,5 +40,24 @@ void control(float temps[], int count)
     // } else {
     //     ledcWrite(ledChannel, 0);  // 输出PWM
     // }
-    simpleOpen(temps, count);
+    if (count < 4)
+    {
+        digitalWrite(relayPin1, HIGH);
+        digitalWrite(relayPin2, HIGH);
+        return;
+    }    
+    if (count == 4)
+    {
+        Serial.print("结果：");
+        Serial.print(temps[2]);
+        Serial.println(temps[2] > 33);
+        int num = digitalRead(relayPin1);
+        Serial.println(num);
+        Serial.println(digitalRead(relayPin2));
+
+        // digitalWrite(relayPin1, temps[2] > 33 ? HIGH : LOW);
+        // digitalWrite(relayPin2, temps[3] > 33 ? HIGH : LOW);
+        digitalWrite(relayPin1, HIGH);
+        digitalWrite(relayPin2, HIGH);        
+    }
 }
