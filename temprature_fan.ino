@@ -18,13 +18,11 @@ void tempControl()
     int count = readTemprature(temps); 
     Serial.print("count: ");
     Serial.println(count);
-    Serial.println("control first");
     control(temps, count);
     for (size_t i = 0; i < count; i++)
     {
       Serial.println(temps[i]);
     }
-
 }
 
 void setup() {
@@ -44,8 +42,8 @@ void loop() {
   float dt11[2];
   readTempAndHumidity(dt11);
 
-  blinkerRun(dt11);
-  
-   tempControl();
+  tempControl();
+
+  blinkerRun(dt11, temps);
   
 }

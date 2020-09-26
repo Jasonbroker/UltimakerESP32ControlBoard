@@ -2,6 +2,7 @@
 #define BLINKER_WIFI
 
 #include <Blinker.h>
+#include "Pins.h"
 
 char auth[] = "70e5abcc82b5";
 char ssid[] = "Danke502";
@@ -13,13 +14,22 @@ BlinkerNumber Number1("num-abc");
 
 BlinkerNumber HUMI("humi");
 BlinkerNumber TEMP("temp");
+BlinkerNumber TEMP1("temp1");
+BlinkerNumber TEMP2("temp2");
+BlinkerNumber TEMP3("temp3");
+BlinkerNumber TEMP4("temp4");
 
 float humi_read = 0, temp_read = 0;
+float tempx, tempy, tempz, tempe = 0;
 
 void heartbeat()
 {
     HUMI.print(humi_read);
     TEMP.print(temp_read);
+    TEMP1.print(tempx);
+    TEMP2.print(tempy);
+    TEMP3.print(tempz);
+    TEMP4.print(tempe);
 }
 
 void dataStorage()
@@ -68,12 +78,18 @@ void blinkerSetup() {
 #endif
 }
 
-void blinkerRun(float dh11[]) {
+void blinkerRun(float dht11[], float temps[])
+{
 #ifdef ENABLE_BLINK
     Blinker.run();
 
-    humi_read = dh11[0];
-    temp_read = dh11[1];
+    humi_read = dht11[0];
+    temp_read = dht11[1];
+
+    tempx = temps[0];
+    tempy = temps[1];
+    tempz = temps[2];
+    tempe = temps[3];
 
     Blinker.delay(2000);
 #endif

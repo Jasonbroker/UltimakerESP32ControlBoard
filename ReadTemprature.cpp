@@ -1,7 +1,8 @@
 #include "ReadTemprature.h"
 #include <OneWire.h>
+#include "Pins.h"
 
-OneWire  ds(19);  // on pin 10 (a 4.7K resistor is necessary)
+OneWire  ds(DS18B20_PIN);  // on pin 10 (a 4.7K resistor is necessary)
 
 int readTemprature(float temps[])
  {
@@ -85,12 +86,17 @@ int readTemprature(float temps[])
 		temps[count] = celsius;
 		count++;
 
-		// 测温频率不需要这么高
-  		delay(1000);
   	}
 
   	Serial.println("No more addresses.");
-  	ds.reset_search();
+	ds.reset_search();
+	if (count == 0)
+	{	
+		delay(3000);
+	} else
+	{
+		delay(1000);
+	}
 	
   	return count;
 }
