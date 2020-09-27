@@ -10,11 +10,13 @@
 #include "PWMFanController.h"
 #include "myblinker.h"
 #include "Configration.h"
+#include "SerialConnection/UltiSerial.h"
 
 float temps[NUM_TEMP_SENSORS];
 
 DH11Logic dht = DH11Logic();
 PWMFanController fanController = PWMFanController();
+UltiSerial ultiSerial = UltiSerial();
 
 void setup() {
   Serial.begin(115200);
@@ -22,6 +24,8 @@ void setup() {
   dht.setup();
   
   blinkerSetup();
+
+  ultiSerial.begin();
 
 }
 
@@ -33,6 +37,8 @@ void loop() {
   int count = readTemprature(temps); 
   // 
   fanController.control(temps, count);
+
+  ultiSerial.work();
 
   // blinkerRun(dt11, temps);
   

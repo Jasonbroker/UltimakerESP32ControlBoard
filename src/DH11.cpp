@@ -32,16 +32,16 @@ void DH11Logic::setup()
 float DH11Logic::readHumidity()
 {
     float ts = millis();
+    
     if (_lastHumiTime &&
      (ts - _lastHumiTime < DH11_READ_INTERVAL))
     {
         return _cachedHumidity;
     }
-    
     float h = _dht.readHumidity();
     _lastHumiTime = ts;
     if (isnan(h)) {
-        Serial.println(F("Failed to read from DHT sensor!"));
+        Serial.println("Failed to read from DHT sensor!");
         return -1;
     }
     Serial.print("Read humi ");
@@ -63,7 +63,7 @@ float DH11Logic::readTemperature()
 
     _lastTempTime = ts;
     if (isnan(t)) {
-      Serial.println(F("Failed to read from DHT sensor!"));
+      Serial.println("Failed to read from DHT sensor!");
       return -1;
     }
     Serial.print("Read temp ");

@@ -1,11 +1,22 @@
 #include "ReadTemprature.h"
 #include <OneWire.h>
 #include "Pins.h"
+#include "Configration.h"
 
 OneWire  ds(DS18B20_PIN);  // on pin 10 (a 4.7K resistor is necessary)
 
+float _lastRead = 0;
+
 int readTemprature(float temps[])
  {
+	float ts = millis();
+	if (_lastRead != 0 && (ts - _lastRead < TEMP_READING_INTERVAL))
+	{
+		return 0;
+	}
+	
+	_lastRead = ts;
+
 	byte i;
 	byte present = 0;
 	byte type_s;
@@ -90,13 +101,6 @@ int readTemprature(float temps[])
 
   	Serial.println("No more addresses.");
 	ds.reset_search();
-	if (count == 0)
-	{	
-		delay(3000);
-	} else
-	{
-		delay(1000);
-	}
-	
+
   	return count;
 }
