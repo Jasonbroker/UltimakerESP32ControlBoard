@@ -6,7 +6,8 @@ class DH11Logic
 {
 private:
     DHT _dht;
-    float _interval;
+    float _lastTempTime;
+    float _lastHumiTime;
     float _cachedTemp;
     float _cachedHumidity;
 public:

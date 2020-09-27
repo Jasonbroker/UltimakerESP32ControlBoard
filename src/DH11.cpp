@@ -1,5 +1,6 @@
 #include "Pins.h"
 #include "DH11.h"
+#include "Configration.h"
 // Feather HUZZAH ESP8266 note: use pins 3, 4, 5, 12, 13 or 14 --
 // Pin 15 can work but DHT must be disconnected during program upload.
 
@@ -24,28 +25,50 @@
 
 void DH11Logic::setup()
 {
-    _interval = millis();
+    _lastTempTime = _lastHumiTime = 0;
     _dht.begin();
 }
 
 float DH11Logic::readHumidity()
 {
+    float ts = millis();
+    if (_lastHumiTime &&
+     (ts - _lastHumiTime < DH11_READ_INTERVAL))
+    {
+        return _cachedHumidity;
+    }
+    
     float h = _dht.readHumidity();
+    _lastHumiTime = ts;
     if (isnan(h)) {
         Serial.println(F("Failed to read from DHT sensor!"));
         return -1;
     }
+    Serial.print("Read humi ");
+    Serial.print(h);
+    Serial.println("%");
+    _cachedHumidity = h;
     return h;
 }
 
 float DH11Logic::readTemperature()
 {
-  float t = _dht.readTemperature();
+  float ts = millis();
+    if (_lastTempTime &&
+     (ts - _lastTempTime < DH11_READ_INTERVAL))
+    {
+        return _cachedTemp;
+    }
+    float t = _dht.readTemperature();
 
-  if (isnan(t)) {
-    Serial.println(F("Failed to read from DHT sensor!"));
-    return -1;
-  }
-  return t;
-
+    _lastTempTime = ts;
+    if (isnan(t)) {
+      Serial.println(F("Failed to read from DHT sensor!"));
+      return -1;
+    }
+    Serial.print("Read temp ");
+    Serial.print(t);
+    Serial.println("°C");
+    _cachedTemp = t;
+    return t;
 }
