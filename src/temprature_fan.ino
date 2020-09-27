@@ -20,14 +20,12 @@ void setup() {
   Serial.begin(115200);
 
   dht.setup();
-  fanController.setup();
-
+  
   blinkerSetup();
 
 }
 
 void loop() {
-
 
   float temp = dht.readHumidity();
   float humidty = dht.readHumidity();

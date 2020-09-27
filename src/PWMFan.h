@@ -1,8 +1,13 @@
-class PWMFan 
-{
-public:
-    void setup();
-    void control(float temps[], int count);
+#include <Arduino.h>
+
+class PWMFan {
 private:
-    void changeSpeedForTemp(float temp, int channel);
+    int8_t _channel;
+public:
+    PWMFan(int8_t channel, int32_t frequency, int8_t resolution, int8_t pin) {
+        ledcSetup(channel, frequency, resolution);
+        ledcAttachPin(pin, channel);
+        _channel = channel;
+    };
+    void changeSpeedForTemp(float temp);
 };
