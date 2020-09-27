@@ -9,10 +9,9 @@
 #include "ReadTemprature.h"
 #include "PWMFanController.h"
 #include "myblinker.h"
+#include "Configration.h"
 
-const int tempSensors = 8;
-
-float temps[tempSensors];
+float temps[NUM_TEMP_SENSORS];
 
 DH11Logic dht = DH11Logic();
 PWMFanController fanController = PWMFanController();
@@ -27,15 +26,16 @@ void setup() {
 
 }
 
-float dt11[2];
 void loop() {
 
-  dht.readTempAndHumidity(dt11);
+
+  float temp = dht.readHumidity();
+  float humidty = dht.readHumidity();
   // 获取温度列表
   int count = readTemprature(temps); 
   // 
   fanController.control(temps, count);
 
-  blinkerRun(dt11, temps);
+  // blinkerRun(dt11, temps);
   
 }

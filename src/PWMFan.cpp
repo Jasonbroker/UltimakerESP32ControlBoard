@@ -2,24 +2,14 @@
 #include "PWMFan.h"
 #include <Arduino.h>
 #include "Pins.h"
-#define X_AXIS 0
-#define Y_AXIS 1
-#define Z_AXIS 2
-#define E_AXIS 3
-
-#define X_AXIS_CHANNEL X_AXIS
-#define Y_AXIS_CHANNEL Y_AXIS
-#define Z_AXIS_CHANNEL Z_AXIS
-#define E_AXIS_CHANNEL E_AXIS
-
+#include "Configration.h"
 
 void PWMFan::setup()
 {
-
     // configure LED PWM functionalitites
-    ledcSetup(X_AXIS_CHANNEL, this->freq, this->resolution);
-    ledcSetup(Y_AXIS_CHANNEL, this->freq, this->resolution);
-    ledcSetup(Z_AXIS_CHANNEL, this->freq, this->resolution);
+    ledcSetup(X_AXIS_CHANNEL, PWM_FREQUENCY, PWM_RESOLUTION);
+    ledcSetup(Y_AXIS_CHANNEL, PWM_FREQUENCY, PWM_RESOLUTION);
+    ledcSetup(Z_AXIS_CHANNEL, PWM_FREQUENCY, PWM_RESOLUTION);
 
 // attach the channel to the GPIO to be controlled
 

@@ -24,28 +24,28 @@
 
 void DH11Logic::setup()
 {
+    _interval = millis();
     _dht.begin();
 }
 
-void DH11Logic::readTempAndHumidity(float dt11[])
+float DH11Logic::readHumidity()
 {
-    // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  float h = _dht.readHumidity();
-  // Read temperature as Celsius (the default)
+    float h = _dht.readHumidity();
+    if (isnan(h)) {
+        Serial.println(F("Failed to read from DHT sensor!"));
+        return -1;
+    }
+    return h;
+}
+
+float DH11Logic::readTemperature()
+{
   float t = _dht.readTemperature();
 
-  if (isnan(h) || isnan(t)) {
+  if (isnan(t)) {
     Serial.println(F("Failed to read from DHT sensor!"));
-    return;
+    return -1;
   }
-  Serial.print(F("Humidity: "));
-  Serial.print(h);
-  Serial.print(F("%  Temperature: "));
-  Serial.print(t);
-  Serial.print(F("°C "));
-  
-  dt11[0] = h;
-  dt11[1] = t;
+  return t;
 
 }
