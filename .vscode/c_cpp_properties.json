@@ -8,8 +8,7 @@
                 "/Users/zzcc/Library/Arduino15/packages/esp32/tools/**",
                 "/Users/zzcc/Library/Arduino15/packages/esp32/hardware/esp32/1.0.4/**",
                 "${workspaceFolder}/**",
-                "/Users/zzcc/Documents/Arduino/libraries/**",
-                "/Users/zzcc/Documents/Arduino/libraries/DHT_sensor_library"
+                "/Users/zzcc/Documents/Arduino/libraries/**"
             ],
             "defines": [],
             "macFrameworkPath": [

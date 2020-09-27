@@ -1,3 +1,4 @@
+#ifdef ENABLE_BLINK
 #define BLINKER_PRINT Serial
 #define BLINKER_WIFI
 
@@ -21,21 +22,26 @@ BlinkerNumber TEMP4("temp4");
 
 float humi_read = 0, temp_read = 0;
 float tempx, tempy, tempz, tempe = 0;
+#endif
 
 void heartbeat()
 {
+#ifdef ENABLE_BLINK
     HUMI.print(humi_read);
     TEMP.print(temp_read);
     TEMP1.print(tempx);
     TEMP2.print(tempy);
     TEMP3.print(tempz);
     TEMP4.print(tempe);
+#endif
 }
 
 void dataStorage()
 {
+#ifdef ENABLE_BLINK
     Blinker.dataStorage("temp", temp_read);
     Blinker.dataStorage("humi", humi_read);
+#endif
 }
 
 int counter = 0;
@@ -43,18 +49,23 @@ int counter = 0;
 #define LED_BUILTIN 2
 
 // 按下按键即会执行该函数
+#ifdef ENABLE_BLINK
 void button1_callback(const String & state) {
+
     BLINKER_LOG("get button state: ", state);
     digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));
 }
+#endif
 
 // 如果未绑定的组件被触发，则会执行其中内容
+#ifdef ENABLE_BLINK
 void dataRead(const String & data)
 {
     BLINKER_LOG("Blinker readString: ", data);
     counter++;
     Number1.print(counter);
 }
+#endif
 
 // #define ENABLE_BLINK
 

@@ -13,6 +13,8 @@
 const int tempSensors = 8;
 
 float temps[tempSensors];
+
+DH11Logic dht = DH11Logic();
 void tempControl()
 {
     int count = readTemprature(temps); 
@@ -28,7 +30,7 @@ void tempControl()
 void setup() {
   Serial.begin(115200);
 
-  dht11Setup();
+  dht.setup();
   fanSetup();
 
   blinkerSetup();
@@ -40,7 +42,7 @@ void loop() {
   delay(2000);
 
   float dt11[2];
-  readTempAndHumidity(dt11);
+  dht.readTempAndHumidity(dt11);
 
   tempControl();
 
