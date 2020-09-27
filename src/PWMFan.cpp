@@ -1,10 +1,7 @@
 // the number of the LED pin
+#include "PWMFan.h"
 #include <Arduino.h>
 #include "Pins.h"
-const int freq = 40;
-
-const int resolution = 8;
-
 #define X_AXIS 0
 #define Y_AXIS 1
 #define Z_AXIS 2
@@ -16,23 +13,23 @@ const int resolution = 8;
 #define E_AXIS_CHANNEL E_AXIS
 
 
-void fanSetup(){
+void PWMFan::setup()
+{
 
     // configure LED PWM functionalitites
-
-    ledcSetup(X_AXIS_CHANNEL, freq, resolution);
-    ledcSetup(Y_AXIS_CHANNEL, freq, resolution);
-    ledcSetup(Z_AXIS_CHANNEL, freq, resolution);
+    ledcSetup(X_AXIS_CHANNEL, this->freq, this->resolution);
+    ledcSetup(Y_AXIS_CHANNEL, this->freq, this->resolution);
+    ledcSetup(Z_AXIS_CHANNEL, this->freq, this->resolution);
 
 // attach the channel to the GPIO to be controlled
 
     ledcAttachPin(AXIS_X_PIN, X_AXIS);
     ledcAttachPin(AXIS_Y_PIN, Y_AXIS);
     ledcAttachPin(AXIS_Z_PIN, Z_AXIS);
-    
+
 }
 
-void changeSpeedForTemp(float temp, int channel)
+void PWMFan::changeSpeedForTemp(float temp, int channel)
 {
     if (temp > 35) {
         ledcWrite(channel, 255);  // 输出PWM
@@ -47,7 +44,7 @@ void changeSpeedForTemp(float temp, int channel)
     Serial.println(temp);
 }
 
-void control(float temps[], int count)
+void PWMFan::control(float temps[], int count)
 {
     if (count > 1)
     {
